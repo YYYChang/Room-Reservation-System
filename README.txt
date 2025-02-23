@@ -1,27 +1,37 @@
 The room reservation system allows users to log in as either guests or members. Only members are permitted to make bookings, while both guests and members can check the remaining number of rooms. This system operates using TCP/UDP networking.
 
-1. client.cpp: provide an TCP client to connect with TCP server ServerM
-   ServerM.cpp: provide TCP server for connection and UDP server and client function
-   ServerS.cpp: provide UDP server and client function
-   ServerD.cpp: provide UDP server and client function
-   ServerU.cpp: provide UDP server and client function
-   file_reader.cpp: let user able to read file with providing path or organize data
-   file_reader.h: header file of FileReader.cpp
-   udp_connect.cpp: udp client and sever operating method
-   udp_connect.h: header file of udpConnect.cpp
-2. for user authentication:
-   client send string "username\npassword\n"
-   serverM reply "S" represent "succeed" when sign in success, reply "failU" represent username not found, reply "failP" represent wrong passowrd
+1. Files and Their Functions:
 
-   for room availability/reservation:
-   client sent string "roomCode\nA\n" for availability request, "roomCode\nR\n" for reservation request,
-   serverM will bridge the same client request to serverS/D/U if necessary
-   serverM/S/D/U response follow the following status code:
-			   PD: permission denied, due to identity
-                           IA: invalid roomCode for avialaility
-                           IR: invalid roomCode for reservation
-                           E: server side error
-                           A: room available
-                           N: room not available
-                           S: reservation succeed
-                           F: reservation failed 
+   client.cpp: Provides a TCP client to connect with the TCP server (ServerM).
+   ServerM.cpp: Acts as a TCP server for client connections and functions as both a UDP server and client.
+   ServerS.cpp: Provides UDP server and client functionality.
+   ServerD.cpp: Provides UDP server and client functionality.
+   ServerU.cpp: Provides UDP server and client functionality.
+   file_reader.cpp: Allows users to read a file by providing a path or to organize data.
+   file_reader.h: Header file for file_reader.cpp.
+   udp_connect.cpp: Implements UDP client and server operations.
+   udp_connect.h: Header file for udp_connect.cpp.
+
+2. User Authentication:
+
+   The client sends a string in the format: "username\npassword\n".
+   ServerM responds with:
+      "S" (Success) if the login is successful.
+      "failU" (Failure - Username) if the username is not found.
+      "failP" (Failure - Password) if the password is incorrect.
+
+3. Room Availability and Reservation:
+
+   The client sends:
+      "roomCode\nA\n" to request availability.
+      "roomCode\nR\n" to request a reservation.
+   ServerM may forward the request to ServerS, ServerD, or ServerU if necessary.
+   ServerM/S/D/U will respond with the following status codes:
+      "PD" (Permission Denied): The user lacks the necessary privileges.
+      "IA" (Invalid Availability): The room code is invalid for an availability check.
+      "IR" (Invalid Reservation): The room code is invalid for a reservation request.
+      "E" (Error): A server-side error occurred.
+      "A" (Available): The room is available.
+      "N" (Not Available): The room is not available.
+      "S" (Success): The reservation was successful.
+      "F" (Failure): The reservation failed.
