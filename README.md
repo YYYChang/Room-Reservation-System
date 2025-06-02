@@ -1,6 +1,10 @@
+# Room Reservation System Overview
 The room reservation system allows users to log in as either guests or members. Only members are permitted to make bookings, while both guests and members can check the remaining number of rooms. This system operates using TCP/UDP networking.
+<p align="center">
+  <img src="./socket.png" alt="system structure" width="70%">
+</p>
 
-1. Files and Their Functions:
+## Files and Their Functions:
 
    client.cpp: Provides a TCP client to connect with the TCP server (ServerM).
    ServerM.cpp: Acts as a TCP server for client connections and functions as both a UDP server and client.
@@ -12,7 +16,7 @@ The room reservation system allows users to log in as either guests or members. 
    udp_connect.cpp: Implements UDP client and server operations.
    udp_connect.h: Header file for udp_connect.cpp.
 
-2. User Authentication:
+## User Authentication:
 
    The client sends a string in the format: "username\npassword\n".
    ServerM responds with:
@@ -20,7 +24,7 @@ The room reservation system allows users to log in as either guests or members. 
       "failU" (Failure - Username) if the username is not found.
       "failP" (Failure - Password) if the password is incorrect.
 
-3. Room Availability and Reservation:
+## Room Availability and Reservation:
 
    The client sends:
       "roomCode\nA\n" to request availability.
